@@ -2,6 +2,7 @@ package me.timothy.ats2.playerinfo;
 
 import me.timothy.ats2.ATSPlugin;
 import me.timothy.ats2.api.Interruptible;
+import me.timothy.ats2.lib.Reference;
 import me.timothy.ats2.playerinfo.lib.PlayerConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,10 +20,14 @@ public class GPlayer {
     //Teleportation Tasks
     public static Map<Player, BukkitTask> teleportTask = new LinkedHashMap<>();
 
+    public static boolean isTeleporting(Player p) {
+        return teleportTask.containsKey(p);
+    }
+
     //Teleportation Tasks : Functions
     //Interrupt Teleport Event
     public static void interruptTeleportTask(Player p) {
-        if (teleportTask.containsKey(p)) {
+        if (isTeleporting(p)) {
             //Interrupt/Stop Event
             teleportTask.get(p).cancel();
             teleportTask.remove(p);
@@ -30,7 +35,7 @@ public class GPlayer {
     }
 
     //Inventory
-    public static List<Player> refuseAccess = new ArrayList<>();
+    public static List<Player> refuseInvEditAccess = new ArrayList<>();
 
     //Chat
     public static Map<Player, String> lastMessage = new LinkedHashMap<>();
@@ -61,10 +66,17 @@ public class GPlayer {
         System.out.println(message);
     }
 
+    public static void PLUGIN_privateMessage(Player p, String message) {
+        p.sendMessage(Reference.displayName + " " + ChatColor.GREEN + message);
+    }
+
     //Functions
     public static void resetAll() {
+        for (BukkitTask tpTask : teleportTask.values()) {
+            tpTask.cancel();
+        }
         teleportTask.clear();
-        refuseAccess.clear();
+        refuseInvEditAccess.clear();
         lastMessage.clear();
         lastMessage_repeatCount.clear();
     }
@@ -76,14 +88,22 @@ public class GPlayer {
     //Player Specific Functions
     public static void resetPlayer(Player p) {
         interruptEvents(p);
-        refuseAccess.remove(p);
+        refuseInvEditAccess.remove(p);
         lastMessage.remove(p);
         lastMessage_repeatCount.remove(p);
     }
 
     //Interrupt Functions
     public static void interruptEvents(Player p) {
+        interruptEvents(p, false);
+    }
+
+    public static void interruptEvents(Player p, boolean fromAPI) {
         interruptTeleportTask(p);
+        if (fromAPI)
+            PLUGIN_privateMessage(p, "All Events/Tasks have been interrupted by another plugin.");
+        else
+            PLUGIN_privateMessage(p, "All Events/Tasks have been interrupted.");
     }
 
     public static void interruptEvent(Player p, Interruptible i) {
@@ -95,5 +115,20 @@ public class GPlayer {
                 interruptTeleportTask(p);
                 break;
         }
+    }
+
+    public static Interruptible[] getInterruptibles(Player p) {
+        List<Interruptible> i = new ArrayList<>();
+        if (isTeleporting(p))
+            i.add(Interruptible.TELEPORT);
+
+        return (Interruptible[]) i.toArray();
+    }
+
+    public static boolean isInterruptable(Player p) {
+        if (teleportTask.containsKey(p))
+            return true;
+
+        return false;
     }
 }
