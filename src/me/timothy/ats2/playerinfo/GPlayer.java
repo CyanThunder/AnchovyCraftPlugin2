@@ -17,6 +17,22 @@ import java.util.*;
 public class GPlayer {
     private static ATSPlugin plugin = ATSPlugin.getInstance();
 
+    //Permits:
+    public static List<Player> permits = new ArrayList<>();
+
+    public static void permit(Player p) {
+        permits.add(p);
+    }
+
+    public static boolean hasPermit(Player p) {
+        return permits.contains(p);
+    }
+
+    public static void removePermit(Player p) {
+        if (hasPermit(p))
+            permits.remove(p);
+    }
+
     //Teleportation Tasks
     public static Map<Player, BukkitTask> teleportTask = new LinkedHashMap<>();
 
