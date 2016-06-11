@@ -1,6 +1,7 @@
 package me.timothy.ats2.chatlib;
 
 import me.timothy.ats2.lib.Reference;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,6 +19,6 @@ public class Chat {
     }
 
     public static void PluginBroadcast(String msg) {
-        Bukkit.broadcastMessage(Reference.displayName + " " + msg);
+        Bukkit.broadcastMessage(Reference.displayName + " " + ChatColor.YELLOW + msg);
     }
 }
