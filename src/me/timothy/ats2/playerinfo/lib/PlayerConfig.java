@@ -1,5 +1,7 @@
 package me.timothy.ats2.playerinfo.lib;
 
+import me.timothy.ats2.lib.Reference.Type;
+
 /**
  * Created by CyanThunderMC on 6/8/2016.
  */
@@ -74,13 +76,5 @@ public enum PlayerConfig {
     public PlayerConfig setDefualt(Object defualt) {
         this.defualt = defualt;
         return this;
-    }
-
-    public enum Type {
-        STRING,
-        BOOLEAN,
-        INTEGER,
-        DOUBLE,
-        FLOAT,
     }
 }

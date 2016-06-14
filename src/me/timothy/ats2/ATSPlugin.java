@@ -1,5 +1,6 @@
 package me.timothy.ats2;
 
+import me.timothy.ats2.autorestart.AutoRestart;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,6 +16,9 @@ public class ATSPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        //Post Initialization:
+        AutoRestart.run();
     }
 
     @Override

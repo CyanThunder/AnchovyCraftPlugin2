@@ -2,7 +2,9 @@ package me.timothy.ats2.playerinfo;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import me.timothy.ats2.ATSPlugin;
+import me.timothy.ats2.lib.Reference.Type;
 import me.timothy.ats2.playerinfo.lib.PlayerConfig;
+import org.bukkit.Achievement;
 import org.bukkit.entity.Player;
 
 import java.util.EmptyStackException;
@@ -59,7 +61,7 @@ public class PlayerData {
     }
 
     public String getString(PlayerConfig config) {
-        if (!configTypeMatch(PlayerConfig.Type.STRING, config)) {
+        if (!configTypeMatch(Type.STRING, config)) {
             throw new IllegalArgumentException("Invalid Object State.");
         } else {
             return (String) getConfig(config);
@@ -71,7 +73,7 @@ public class PlayerData {
     }
 
     public int getInteger(PlayerConfig config) {
-        if (!configTypeMatch(PlayerConfig.Type.INTEGER, config)) {
+        if (!configTypeMatch(Type.INTEGER, config)) {
             throw new IllegalArgumentException("Invalid Object State.");
         } else {
             return (Integer) getConfig(config);
@@ -79,7 +81,7 @@ public class PlayerData {
     }
 
     public boolean getBoolean(PlayerConfig config) {
-        if (!configTypeMatch(PlayerConfig.Type.BOOLEAN, config)) {
+        if (!configTypeMatch(Type.BOOLEAN, config)) {
             throw new IllegalArgumentException("Invalid Object State.");
         } else {
             return (Boolean) getConfig(config);
@@ -87,7 +89,7 @@ public class PlayerData {
     }
 
     public double getDouble(PlayerConfig config) {
-        if (!configTypeMatch(PlayerConfig.Type.DOUBLE, config)) {
+        if (!configTypeMatch(Type.DOUBLE, config)) {
             throw new IllegalArgumentException("Invalid Object State.");
         } else {
             return (Double) getConfig(config);
@@ -95,19 +97,23 @@ public class PlayerData {
     }
 
     public float getFloat(PlayerConfig config) {
-        if (!configTypeMatch(PlayerConfig.Type.FLOAT, config)) {
+        if (!configTypeMatch(Type.FLOAT, config)) {
             throw new IllegalArgumentException("Invalid Object State.");
         } else {
             return (Float) getConfig(config);
         }
     }
 
-    public boolean configTypeMatch(PlayerConfig.Type main, PlayerConfig config) {
+    public boolean configTypeMatch(Type main, PlayerConfig config) {
         return configTypeMatch(main, config.getType());
     }
 
-    public boolean configTypeMatch(PlayerConfig.Type main, PlayerConfig.Type compare) {
+    public boolean configTypeMatch(Type main, Type compare) {
         return (main == compare);
+    }
+
+    public boolean hasAchievement(Achievement achievement) {
+        return player.hasAchievement(achievement);
     }
 
     public void clearMem() {
