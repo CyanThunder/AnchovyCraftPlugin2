@@ -16,4 +16,8 @@ public class Reference {
         DOUBLE,
         FLOAT,
     }
+
+    public static class BlockTracer {
+        public static int maximumBlockTraces = 1000;
+    }
 }

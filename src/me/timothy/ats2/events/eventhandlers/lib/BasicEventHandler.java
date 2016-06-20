@@ -1,4 +1,4 @@
-package me.timothy.ats2.eventhandlers;
+package me.timothy.ats2.events.eventhandlers.lib;
 
 import me.timothy.ats2.ATSPlugin;
 import org.bukkit.event.Listener;

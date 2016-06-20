@@ -15,6 +15,9 @@ public enum PlayerConfig {
     DEATHS("deaths", Type.INTEGER, 0),
     KDR(null, Type.DOUBLE, true),
     CHAT_COLOR("chatcolor", Type.STRING, "white"),
+    ALLOW_TELEPORT("TELEPORT.allowTP", Type.BOOLEAN, false),
+    ALLOW_ALL_TELEPORT("TELEPORT.AllowAll", Type.BOOLEAN, false),
+    GIVE_TELEPORT_WARNING("TELEPORT.TPWarn", Type.BOOLEAN, true),
     FAKE("", Type.STRING, true);
 
 

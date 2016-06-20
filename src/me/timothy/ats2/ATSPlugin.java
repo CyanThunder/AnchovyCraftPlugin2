@@ -1,6 +1,7 @@
 package me.timothy.ats2;
 
 import me.timothy.ats2.autorestart.AutoRestart;
+import me.timothy.ats2.events.eventhandlers.CustomEventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -16,6 +17,9 @@ public class ATSPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        //Register Event Handlers:
+        getServer().getPluginManager().registerEvents(new CustomEventHandler(), this);
 
         //Post Initialization:
         AutoRestart.run();
