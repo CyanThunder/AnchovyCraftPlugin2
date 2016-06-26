@@ -19,7 +19,9 @@ public class ChatMessage {
     private Boolean expired = false;
     private BukkitTask expireTask;
 
-    public ChatMessage(Player player, String message, Integer duration) {
+    private SpamReason type;
+
+    public ChatMessage(Player player, String message, Integer duration, SpamReason type) {
         this.player = player;
         this.message = message;
         this.tickExpiration = duration;
@@ -44,12 +46,7 @@ public class ChatMessage {
         if (isExpiring())
             return this;
 
-        expireTask = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                expire();
-            }
-        }, tickExpiration);
+        expireTask = plugin.getServer().getScheduler().runTaskLater(plugin, this::expire, tickExpiration);
 
         isExpiring = true;
 
@@ -68,7 +65,10 @@ public class ChatMessage {
         if (expireTask != null)
             expireTask.cancel();
 
-        AntiSpam.recentMessages.remove(this);
+        if (type == SpamReason.REPEATED_MESSAGE)
+            AntiSpam.recentMessages.remove(this);
+        if (type == SpamReason.TOO_FAST_MESSAGE)
+            AntiSpam.chatCooldown.remove(this);
 
         isExpiring = false;
         expired = true;

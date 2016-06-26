@@ -28,7 +28,7 @@ public class PlayerData {
     private double fake_KDR() {
         int kills = getInt(PlayerConfig.KILLS);
         int deaths = getInt(PlayerConfig.DEATHS);
-        double ratio = 0.00;
+        double ratio;
 
         if (deaths != 0) {
             ratio = (float) kills / (float) deaths;

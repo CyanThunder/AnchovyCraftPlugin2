@@ -35,12 +35,7 @@ public class AutoRestart extends AutoRestartlib {
             warn((int) (l/60), type, getARDSecs() - l);
         }
 
-        BukkitTask restartTask = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                restart();
-            }
-        }, getARDSecs());
+        BukkitTask restartTask = plugin.getServer().getScheduler().runTaskLater(plugin, AutoRestart::restart, getARDSecs());
 
         addTask(restartTask);
     }
@@ -57,12 +52,7 @@ public class AutoRestart extends AutoRestartlib {
     }
 
     public static void warn(int time, String measurement, long delayInSeconds) {
-        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                Chat.PluginBroadcast("Server restarting in " + ChatColor.RED + time + ChatColor.YELLOW + measurement + ".");
-            }
-        }, delayInSeconds);
+        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, () -> Chat.PluginBroadcast("Server restarting in " + ChatColor.RED + time + ChatColor.YELLOW + measurement + "."), delayInSeconds);
 
         addTask(task);
     }

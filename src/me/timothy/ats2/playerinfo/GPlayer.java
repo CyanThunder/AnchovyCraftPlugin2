@@ -2,6 +2,7 @@ package me.timothy.ats2.playerinfo;
 
 import me.timothy.ats2.ATSPlugin;
 import me.timothy.ats2.api.Interruptible;
+import me.timothy.ats2.chatlib.Chat;
 import me.timothy.ats2.lib.Reference;
 import me.timothy.ats2.playerinfo.lib.PlayerConfig;
 import org.bukkit.Bukkit;
@@ -74,12 +75,7 @@ public class GPlayer {
 
     //Chat FUNCTIONS
     public static void opBroadcast(String message) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.isOp()) {
-                p.sendMessage(message);
-            }
-        }
-        System.out.println(message);
+        Chat.opBroadcast(message);
     }
 
     public static void PLUGIN_privateMessage(Player p, String message) {
@@ -88,9 +84,7 @@ public class GPlayer {
 
     //Functions
     public static void resetAll() {
-        for (BukkitTask tpTask : teleportTask.values()) {
-            tpTask.cancel();
-        }
+        teleportTask.values().forEach(BukkitTask::cancel);
         teleportTask.clear();
         refuseInvEditAccess.clear();
         lastMessage.clear();

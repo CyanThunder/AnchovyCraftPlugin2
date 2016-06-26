@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * Created by CyanThunderMC on 6/15/2016.
@@ -67,10 +68,7 @@ public class BlockTrace {
 
         //Convert Blocks to Material
         boolean test;
-        Collection<Material> c = new ArrayList<>();
-        for (Block block : connectables) {
-            c.add(block.getType());
-        }
+        Collection<Material> c = connectables.stream().map(Block::getType).collect(Collectors.toCollection(ArrayList::new));
 
         //Do some checks
 

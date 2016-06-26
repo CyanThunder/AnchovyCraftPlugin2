@@ -38,7 +38,7 @@ public class ChatTimeout {
         task = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
-                AntiSpam.timedOut.remove(player);
+                AntiSpam.timedOut.remove(this);
             }
         }, getOriginalTickDuration());
         return this;
@@ -46,6 +46,6 @@ public class ChatTimeout {
 
     public void cancel() {
         getTask().cancel();
-        AntiSpam.timedOut.remove(player);
+        AntiSpam.timedOut.remove(this);
     }
 }

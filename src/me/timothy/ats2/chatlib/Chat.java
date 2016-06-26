@@ -14,17 +14,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.permissions.ServerOperator;
 
 /**
  * Created by CyanThunderMC on 6/1/2016.
  */
 public class Chat {
     public static void opBroadcast(String msg) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.isOp()) {
-                player.sendMessage(msg);
-            }
-        }
+        Bukkit.getOnlinePlayers().stream().filter(ServerOperator::isOp).forEach(player -> player.sendMessage(msg));
         ConsoleChat.log(msg);
     }
 
@@ -57,14 +54,14 @@ public class Chat {
                 String tagFormat = ChatColor.DARK_GRAY + "[**ins(tag) " + ChatColor.DARK_GRAY + "]";
                 String tag = PlayerTag.getTag(player, tagFormat);
 
-                String nameWborder = "";
+                String nameWborder;
 
                 ChatColor playerColor = GPlayer.getChatColor(player);
                 Boolean hardmode = playerData.getBoolean(PlayerConfig.HARDMODE);
 
                 String defualtbordercolor = ChatColor.WHITE + "";
                 String hmbordercolor = ChatColor.RED + "";
-                String[] playerBorder = new String[] { hmbordercolor + "<", hmbordercolor + ">"};
+                String[] playerBorder = new String[] { defualtbordercolor + "<", defualtbordercolor + ">"};
                 if (hardmode)
                     playerBorder = new String[] { hmbordercolor + "{", hmbordercolor + "}"};
 

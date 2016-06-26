@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class AntiSpam {
     //Player Previous Messages:
-    private static List<ChatMessage> chatCooldown = new ArrayList<>();
-    private static List<ChatMessage> recentMessages = new ArrayList<>();
-    private static List<ChatTimeout> timedOut = new ArrayList<>();
+    public static List<ChatMessage> chatCooldown = new ArrayList<>();
+    public static List<ChatMessage> recentMessages = new ArrayList<>();
+    public static List<ChatTimeout> timedOut = new ArrayList<>();
 
     public static SpamTrigger playerChat(Player player, String message) {
         //IGNORE CHECKS IF PLAYER IS OP & SPAM BYPASS IS TRUE.
@@ -73,10 +73,10 @@ public class AntiSpam {
 
     //Recent Messages Functions
     public static void playerChat_asfunct(Player player, String message) {
-        ChatMessage rmChatMessage = new ChatMessage(player, message, defualtMessageResetTime);
+        ChatMessage rmChatMessage = new ChatMessage(player, message, defualtMessageResetTime, SpamReason.REPEATED_MESSAGE);
         recentMessages.add(rmChatMessage.startExpiration());
 
-        ChatMessage dtChatMessage = new ChatMessage(player, message, defualtMessageDelayTime);
+        ChatMessage dtChatMessage = new ChatMessage(player, message, defualtMessageDelayTime, SpamReason.TOO_FAST_MESSAGE);
         chatCooldown.add(dtChatMessage.startExpiration());
     }
 

@@ -72,9 +72,7 @@ public class AutoRestartlib {
     }
 
     public static void stopTasks() {
-        for (BukkitTask task : tasks) {
-            task.cancel();
-        }
+        tasks.forEach(BukkitTask::cancel);
         tasks.clear();
     }
 

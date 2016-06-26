@@ -40,12 +40,7 @@ public class CommandTeleport extends ACPCommand {
                         //WARN TARGET IS APPLICABLE!
                         pt.warn();
 
-                        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-                            @Override
-                            public void run() {
-                                pt.callEvent(pt.createEvent(PlayerTeleportEvent.TeleportCause.COMMAND));
-                            }
-                        }, 5*20L);
+                        BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, () -> pt.callEvent(pt.createEvent(PlayerTeleportEvent.TeleportCause.COMMAND)), 5*20L);
 
                         GPlayer.teleportTask.put(player, task);
                     } else {
