@@ -51,7 +51,7 @@ public class PlayerEventHandler extends BasicEventHandler {
     }
 
     //Chat Event
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onChat(AsyncPlayerChatEvent event) {
         Chat.handleChat(event);
     }
