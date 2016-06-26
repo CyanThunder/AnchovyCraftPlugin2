@@ -1,6 +1,7 @@
 package me.timothy.ats2.events.eventhandlers;
 
 import me.timothy.ats2.api.Interruptible;
+import me.timothy.ats2.chatlib.Chat;
 import me.timothy.ats2.events.eventhandlers.lib.BasicEventHandler;
 import me.timothy.ats2.playerinfo.GPlayer;
 import me.timothy.ats2.playerinfo.PlayerData;
@@ -8,6 +9,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -46,5 +48,11 @@ public class PlayerEventHandler extends BasicEventHandler {
                 }
             }
         }
+    }
+
+    //Chat Event
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onChat(AsyncPlayerChatEvent event) {
+        Chat.handleChat(event);
     }
 }

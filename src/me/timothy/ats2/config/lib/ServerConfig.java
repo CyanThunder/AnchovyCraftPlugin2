@@ -15,7 +15,12 @@ public enum ServerConfig {
     ENDERDRAGON_HOMES("settings.homes.enderdragon.additional_homes", Type.INTEGER, 0),
     ENDERDRAGON_BUYABLEHOMES("settings.homes.enderdragon.additional_buyable_homes", Type.INTEGER, 2),
     WITHER_HOMES("settings.homes.wither.additional_homes", Type.INTEGER, 0),
-    WITHER_BUYABLEHOMES("settings.homes.wither.additional_buyable_homes", Type.INTEGER, 3)
+    WITHER_BUYABLEHOMES("settings.homes.wither.additional_buyable_homes", Type.INTEGER, 3),
+
+    OP_SPAM_BYPASS("settings.chat.antispam.op_bypass", Type.BOOLEAN, true),
+
+    USE_ANTISPAM("settings.chat.antispam.enable", Type.BOOLEAN, true),
+    USE_CHATHANDLER("settings.chat.useHandler", Type.BOOLEAN, true)
     ;
 
     private ATSPlugin plugin = ATSPlugin.getInstance();
